@@ -1,5 +1,7 @@
 package com.example.njgupta.sunshine;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +40,7 @@ import java.util.List;
  */
 public class ForecastFragment extends Fragment{
     final String URL_FORMED = "URL Formed";
+    public static final String EXTRA_DAY_FORECAST ="com.example.sunshine.EXTRA_DAY_FORECAST";
     ArrayAdapter mForecastAdapter;
     public ForecastFragment() {
     }
@@ -99,6 +104,14 @@ public class ForecastFragment extends Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Context context = getActivity().getApplicationContext();
+                TextView textView = (TextView)view;
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context,textView.getText(),duration);
+                toast.show();
+                Intent intent = new Intent(getActivity(),DetailsActivity.class);
+                intent.putExtra(EXTRA_DAY_FORECAST,parent.getItemAtPosition(position).toString());
+                startActivity(intent);
 
             }
         });

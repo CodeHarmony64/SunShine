@@ -1,18 +1,26 @@
 package com.example.njgupta.sunshine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class DetailsActivity extends ActionBarActivity {
 
+    public String detailsForecastString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        Intent intent = getIntent();
+        detailsForecastString = (String) intent.getStringExtra(ForecastFragment.EXTRA_DAY_FORECAST);
+        ((TextView) findViewById(R.id.fragment_details_text_view)).setText(detailsForecastString);
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -30,6 +38,7 @@ public class DetailsActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this,SettingsActivity.class));
             return true;
         }
 
